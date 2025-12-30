@@ -259,6 +259,34 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .photo-card img.loaded {
+            opacity: 1;
+        }
+
+        /* 图片加载占位动画 */
+        .photo-card::before {
+            content: '💕';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2rem;
+            animation: pulse 1.5s ease-in-out infinite;
+            z-index: 0;
+        }
+
+        .photo-card img.loaded + .photo-card::before,
+        .photo-card:has(img.loaded)::before {
+            display: none;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+            50% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
         }
 
         /* 动画状态 - 飞入堆叠 */
@@ -875,9 +903,9 @@
                 <div class="city-date">📍 Guangzhou</div>
             </div>
             <div class="photo-cards-container" id="cards2">
-                <div class="photo-card"><img src="photos/guangzhou1.jpg" alt="广州"></div>
-                <div class="photo-card"><img src="photos/guangzhou2.jpg" alt="广州"></div>
-                <div class="photo-card"><img src="photos/guangzhou3.jpg" alt="广州"></div>
+                <div class="photo-card"><img src="https://cdn.jsdelivr.net/gh/hutututu2005/love-gift@main/photos/guangzhou1.jpg" alt="广州" loading="lazy"></div>
+                <div class="photo-card"><img src="https://cdn.jsdelivr.net/gh/hutututu2005/love-gift@main/photos/guangzhou2.jpg" alt="广州" loading="lazy"></div>
+                <div class="photo-card"><img src="https://cdn.jsdelivr.net/gh/hutututu2005/love-gift@main/photos/guangzhou3.jpg" alt="广州" loading="lazy"></div>
             </div>
             <div class="photo-counter" id="counter2">点击查看照片 📸</div>
             <div class="btn-group">
@@ -896,9 +924,9 @@
                 <div class="city-date">📍 Jiangmen · 你的家乡</div>
             </div>
             <div class="photo-cards-container" id="cards3">
-                <div class="photo-card"><img src="photos/jiangmen1.jpg" alt="江门"></div>
-                <div class="photo-card"><img src="photos/jiangmen2.jpg" alt="江门"></div>
-                <div class="photo-card"><img src="photos/jiangmen3.jpg" alt="江门"></div>
+                <div class="photo-card"><img src="https://cdn.jsdelivr.net/gh/hutututu2005/love-gift@main/photos/jiangmen1.jpg" alt="江门" loading="lazy"></div>
+                <div class="photo-card"><img src="https://cdn.jsdelivr.net/gh/hutututu2005/love-gift@main/photos/jiangmen2.jpg" alt="江门" loading="lazy"></div>
+                <div class="photo-card"><img src="https://cdn.jsdelivr.net/gh/hutututu2005/love-gift@main/photos/jiangmen3.jpg" alt="江门" loading="lazy"></div>
             </div>
             <div class="photo-counter" id="counter3">点击查看照片 📸</div>
             <div class="btn-group">
@@ -917,9 +945,9 @@
                 <div class="city-date">📍 Foshan</div>
             </div>
             <div class="photo-cards-container" id="cards4">
-                <div class="photo-card"><img src="photos/foshan1.jpg" alt="佛山"></div>
-                <div class="photo-card"><img src="photos/foshan2.jpg" alt="佛山"></div>
-                <div class="photo-card"><img src="photos/foshan3.jpg" alt="佛山"></div>
+                <div class="photo-card"><img src="https://cdn.jsdelivr.net/gh/hutututu2005/love-gift@main/photos/foshan1.jpg" alt="佛山" loading="lazy"></div>
+                <div class="photo-card"><img src="https://cdn.jsdelivr.net/gh/hutututu2005/love-gift@main/photos/foshan2.jpg" alt="佛山" loading="lazy"></div>
+                <div class="photo-card"><img src="https://cdn.jsdelivr.net/gh/hutututu2005/love-gift@main/photos/foshan3.jpg" alt="佛山" loading="lazy"></div>
             </div>
             <div class="photo-counter" id="counter4">点击查看照片 📸</div>
             <div class="btn-group">
@@ -938,9 +966,9 @@
                 <div class="city-date">📍 Macau</div>
             </div>
             <div class="photo-cards-container" id="cards5">
-                <div class="photo-card"><img src="photos/macau1.jpg" alt="澳门"></div>
-                <div class="photo-card"><img src="photos/macau2.jpg" alt="澳门"></div>
-                <div class="photo-card"><img src="photos/macau3.jpg" alt="澳门"></div>
+                <div class="photo-card"><img src="https://cdn.jsdelivr.net/gh/hutututu2005/love-gift@main/photos/macau1.jpg" alt="澳门" loading="lazy"></div>
+                <div class="photo-card"><img src="https://cdn.jsdelivr.net/gh/hutututu2005/love-gift@main/photos/macau2.jpg" alt="澳门" loading="lazy"></div>
+                <div class="photo-card"><img src="https://cdn.jsdelivr.net/gh/hutututu2005/love-gift@main/photos/macau3.jpg" alt="澳门" loading="lazy"></div>
             </div>
             <div class="photo-counter" id="counter5">点击查看照片 📸</div>
             <div class="btn-group">
@@ -959,9 +987,9 @@
                 <div class="city-date">📍 Zhuhai</div>
             </div>
             <div class="photo-cards-container" id="cards6">
-                <div class="photo-card"><img src="photos/zhuhai1.jpg" alt="珠海"></div>
-                <div class="photo-card"><img src="photos/zhuhai2.jpg" alt="珠海"></div>
-                <div class="photo-card"><img src="photos/zhuhai3.jpg" alt="珠海"></div>
+                <div class="photo-card"><img src="https://cdn.jsdelivr.net/gh/hutututu2005/love-gift@main/photos/zhuhai1.jpg" alt="珠海" loading="lazy"></div>
+                <div class="photo-card"><img src="https://cdn.jsdelivr.net/gh/hutututu2005/love-gift@main/photos/zhuhai2.jpg" alt="珠海" loading="lazy"></div>
+                <div class="photo-card"><img src="https://cdn.jsdelivr.net/gh/hutututu2005/love-gift@main/photos/zhuhai3.jpg" alt="珠海" loading="lazy"></div>
             </div>
             <div class="photo-counter" id="counter6">点击查看照片 📸</div>
             <div class="btn-group">
@@ -980,9 +1008,9 @@
                 <div class="city-date">📍 Shenzhen</div>
             </div>
             <div class="photo-cards-container" id="cards7">
-                <div class="photo-card"><img src="photos/shenzhen1.jpg" alt="深圳"></div>
-                <div class="photo-card"><img src="photos/shenzhen2.jpg" alt="深圳"></div>
-                <div class="photo-card"><img src="photos/shenzhen3.jpg" alt="深圳"></div>
+                <div class="photo-card"><img src="https://cdn.jsdelivr.net/gh/hutututu2005/love-gift@main/photos/shenzhen1.jpg" alt="深圳" loading="lazy"></div>
+                <div class="photo-card"><img src="https://cdn.jsdelivr.net/gh/hutututu2005/love-gift@main/photos/shenzhen2.jpg" alt="深圳" loading="lazy"></div>
+                <div class="photo-card"><img src="https://cdn.jsdelivr.net/gh/hutututu2005/love-gift@main/photos/shenzhen3.jpg" alt="深圳" loading="lazy"></div>
             </div>
             <div class="photo-counter" id="counter7">点击查看照片 📸</div>
             <div class="btn-group">
@@ -1101,7 +1129,7 @@
     <div class="page confession-page" id="page9">
         <div class="confession-container">
             <div class="final-photo">
-                <img src="photos/final.jpg" alt="我们">
+                <img src="https://cdn.jsdelivr.net/gh/hutututu2005/love-gift@main/photos/final.jpg" alt="我们" loading="lazy">
             </div>
             
             <h2 class="confession-title">甄呆呆小朋友：</h2>
@@ -1430,9 +1458,24 @@
             }
         });
 
+        // 图片加载完成后显示
+        function setupImageLoading() {
+            const images = document.querySelectorAll('.photo-card img');
+            images.forEach(img => {
+                if (img.complete) {
+                    img.classList.add('loaded');
+                } else {
+                    img.addEventListener('load', () => {
+                        img.classList.add('loaded');
+                    });
+                }
+            });
+        }
+
         createIndicators();
         createParticles();
         setupPhotoClickHandlers();
+        setupImageLoading();
     </script>
 </body>
 </html>
