@@ -1,0 +1,1438 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>小刘同学和甄呆呆的年度旅行总结 💕</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --pink: #ff6b8a;
+            --pink-light: #ffa5b8;
+            --pink-pale: #fff0f3;
+            --coral: #ff8a80;
+            --orange: #ffb347;
+            --cream: #fffaf8;
+            --text: #333;
+            --text-light: #888;
+            --cyan: #00f5ff;
+            --purple: #bf5fff;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', -apple-system, sans-serif;
+            background: #000;
+            color: #fff;
+        }
+
+        .page {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 15px 10px;
+            overflow: hidden;
+        }
+
+        .page.active {
+            display: flex;
+        }
+
+        .btn {
+            padding: 12px 36px;
+            font-size: 0.95rem;
+            font-family: 'ZCOOL KuaiLe', cursive;
+            background: linear-gradient(135deg, var(--pink), var(--coral));
+            border: none;
+            border-radius: 50px;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 25px rgba(255, 107, 138, 0.5);
+            flex-shrink: 0;
+            z-index: 10;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px) scale(1.02);
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* ========== 开场页 ========== */
+        .intro-page {
+            background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);
+        }
+
+        .intro-content {
+            text-align: center;
+            z-index: 1;
+        }
+
+        .year-badge {
+            display: inline-block;
+            padding: 6px 20px;
+            background: rgba(255, 107, 138, 0.2);
+            border: 1px solid rgba(255, 107, 138, 0.5);
+            border-radius: 30px;
+            font-size: 0.85rem;
+            color: var(--pink);
+            margin-bottom: 20px;
+        }
+
+        .intro-title {
+            font-family: 'ZCOOL KuaiLe', cursive;
+            font-size: clamp(1.5rem, 5.5vw, 2.2rem);
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        .intro-title .highlight {
+            background: linear-gradient(135deg, var(--pink), var(--orange));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .intro-title .and {
+            font-size: 0.8em;
+            color: rgba(255,255,255,0.6);
+        }
+
+        .intro-subtitle {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 25px;
+        }
+
+        .intro-stats {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: 'ZCOOL KuaiLe', cursive;
+            font-size: 1.8rem;
+            color: var(--pink);
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-top: 4px;
+        }
+
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--pink);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: float 15s linear infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.3; }
+            90% { opacity: 0.3; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* ========== 城市页面 ========== */
+        .city-page {
+            position: relative;
+        }
+
+        .city-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .city-header {
+            margin-bottom: 10px;
+        }
+
+        .city-number {
+            font-family: 'ZCOOL KuaiLe', cursive;
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 3px;
+            letter-spacing: 3px;
+        }
+
+        .city-name {
+            font-family: 'ZCOOL KuaiLe', cursive;
+            font-size: clamp(1.8rem, 9vw, 2.8rem);
+            margin-bottom: 3px;
+            text-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .city-date {
+            display: inline-block;
+            padding: 4px 12px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            font-size: 0.75rem;
+        }
+
+        /* 扑克牌式照片容器 */
+        .photo-cards-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            height: 50vh;
+            max-height: 380px;
+            min-height: 260px;
+            margin-bottom: 15px;
+            perspective: 1000px;
+        }
+
+        .photo-card {
+            position: absolute;
+            width: 55vw;
+            max-width: 280px;
+            min-width: 200px;
+            aspect-ratio: 3/4;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 5px solid #fff;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+            background: #fff;
+            transform-origin: bottom center;
+            opacity: 0;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%) translateY(150px) rotate(0deg) scale(0.5);
+            transition: all 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .photo-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* 动画状态 - 飞入堆叠 */
+        .photo-card.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0) rotate(0deg) scale(1);
+        }
+
+        /* 动画状态 - 扇形展开 */
+        .photo-cards-container.spread .photo-card:nth-child(1) {
+            transform: translateX(-85%) translateY(15px) rotate(-12deg);
+            z-index: 1;
+        }
+
+        .photo-cards-container.spread .photo-card:nth-child(2) {
+            transform: translateX(-50%) translateY(0) rotate(0deg);
+            z-index: 3;
+        }
+
+        .photo-cards-container.spread .photo-card:nth-child(3) {
+            transform: translateX(-15%) translateY(15px) rotate(12deg);
+            z-index: 2;
+        }
+
+        /* 照片计数器 */
+        .photo-counter {
+            font-family: 'ZCOOL KuaiLe', cursive;
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 10px;
+        }
+
+        /* 按钮组 */
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn-small {
+            padding: 10px 25px;
+            font-size: 0.85rem;
+        }
+
+        .btn-next-photo {
+            background: linear-gradient(135deg, #fff, #f0f0f0);
+            color: var(--pink);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-next-photo:hover {
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        /* 城市背景色 */
+        .city-guangzhou { background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%); }
+        .city-jiangmen { background: linear-gradient(135deg, #26de81 0%, #20bf6b 100%); }
+        .city-foshan { background: linear-gradient(135deg, #fd9644 0%, #fa8231 100%); }
+        .city-macau { background: linear-gradient(135deg, #a55eea 0%, #8854d0 100%); }
+        .city-zhuhai { background: linear-gradient(135deg, #45aaf2 0%, #2d98da 100%); }
+        .city-shenzhen { background: linear-gradient(135deg, #2bcbba 0%, #0fb9b1 100%); }
+
+        /* ========== 地图页 ========== */
+        .map-page {
+            background: radial-gradient(ellipse at center, #0a1628 0%, #000 100%);
+            padding: 10px;
+        }
+
+        .map-container {
+            text-align: center;
+            z-index: 1;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding-top: 10px;
+        }
+
+        .map-title {
+            font-family: 'ZCOOL KuaiLe', cursive;
+            font-size: clamp(1.2rem, 4vw, 1.5rem);
+            margin-bottom: 3px;
+            background: linear-gradient(135deg, var(--cyan), var(--pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            flex-shrink: 0;
+        }
+
+        .map-subtitle {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.75rem;
+            margin-bottom: 8px;
+            flex-shrink: 0;
+        }
+
+        .map-svg-wrapper {
+            width: 100%;
+            max-width: 100%;
+            flex: 1;
+            min-height: 0;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .map-svg {
+            width: 100%;
+            height: 100%;
+            max-height: 70vh;
+        }
+
+        .province {
+            fill: rgba(0, 245, 255, 0.1);
+            stroke: rgba(0, 245, 255, 0.5);
+            stroke-width: 1.5;
+        }
+
+        .sea {
+            fill: rgba(0, 100, 180, 0.15);
+        }
+
+        .city-dot-svg {
+            fill: var(--cyan);
+            filter: drop-shadow(0 0 8px var(--cyan)) drop-shadow(0 0 15px var(--cyan));
+        }
+
+        .city-dot-svg.shanghai {
+            fill: var(--orange);
+            filter: drop-shadow(0 0 8px var(--orange)) drop-shadow(0 0 15px var(--orange));
+        }
+
+        .city-label-svg {
+            font-family: 'Noto Sans SC', sans-serif;
+            font-size: 12px;
+            fill: #fff;
+        }
+
+        .city-label-svg.shanghai {
+            fill: var(--orange);
+        }
+
+        .connection-line {
+            stroke: url(#connectionGradient);
+            stroke-width: 2.5;
+            stroke-dasharray: 10, 5;
+            fill: none;
+            animation: dashFlow 1s linear infinite;
+        }
+
+        @keyframes dashFlow {
+            to { stroke-dashoffset: -30; }
+        }
+
+        .glow-ring {
+            fill: none;
+            stroke: var(--cyan);
+            stroke-width: 1.5;
+            opacity: 0;
+        }
+
+        .glow-ring.shanghai {
+            stroke: var(--orange);
+        }
+
+        .map-stats {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin: 10px 0;
+            flex-shrink: 0;
+        }
+
+        .map-stat {
+            padding: 8px 12px;
+            background: rgba(0, 245, 255, 0.1);
+            border: 1px solid rgba(0, 245, 255, 0.3);
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .map-stat-number {
+            font-family: 'ZCOOL KuaiLe', cursive;
+            font-size: 1.1rem;
+            color: var(--cyan);
+        }
+
+        .map-stat-label {
+            font-size: 0.65rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .map-page .btn {
+            flex-shrink: 0;
+            margin-top: 8px;
+            padding: 10px 30px;
+            font-size: 0.9rem;
+        }
+
+        /* ========== 告白页 ========== */
+        .confession-page {
+            background: linear-gradient(180deg, #1a1a2e 0%, #2d1b3d 100%);
+        }
+
+        .confession-container {
+            text-align: center;
+            z-index: 1;
+            max-width: 380px;
+            width: 100%;
+        }
+
+        .final-photo {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid var(--pink);
+            box-shadow: 0 0 30px rgba(255, 107, 138, 0.5);
+            animation: photoGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes photoGlow {
+            0%, 100% { box-shadow: 0 0 30px rgba(255, 107, 138, 0.5); }
+            50% { box-shadow: 0 0 50px rgba(255, 107, 138, 0.8); }
+        }
+
+        .final-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .confession-title {
+            font-family: 'ZCOOL KuaiLe', cursive;
+            font-size: clamp(1.3rem, 4.5vw, 1.8rem);
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, var(--pink), var(--orange));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .confession-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            border-radius: 18px;
+            padding: 20px 18px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            margin-bottom: 20px;
+        }
+
+        .confession-text {
+            font-size: 0.9rem;
+            line-height: 1.9;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .confession-text p {
+            margin-bottom: 8px;
+        }
+
+        .confession-text .highlight {
+            color: var(--pink);
+            font-weight: 500;
+        }
+
+        .confession-signature {
+            font-family: 'ZCOOL KuaiLe', cursive;
+            font-size: 1.1rem;
+            color: var(--pink);
+            margin-top: 12px;
+        }
+
+        /* ========== 跨年页 ========== */
+        .newyear-page {
+            background: linear-gradient(180deg, #0d0d1a 0%, #1a0a2e 50%, #0d0d1a 100%);
+        }
+
+        .newyear-container {
+            text-align: center;
+            z-index: 1;
+            max-width: 380px;
+            width: 100%;
+        }
+
+        .year-transition {
+            margin-bottom: 15px;
+        }
+
+        .year-old {
+            font-family: 'ZCOOL KuaiLe', cursive;
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.4);
+            text-decoration: line-through;
+            margin-bottom: 6px;
+        }
+
+        .year-arrow {
+            font-size: 1.3rem;
+            margin-bottom: 6px;
+            animation: bounce 1s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+
+        .year-new {
+            font-family: 'ZCOOL KuaiLe', cursive;
+            font-size: clamp(3.5rem, 16vw, 5rem);
+            background: linear-gradient(135deg, #ffd700, var(--pink), #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1;
+        }
+
+        .newyear-subtitle {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 15px;
+        }
+
+        .newyear-message {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 18px;
+            padding: 18px 15px;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            margin-bottom: 18px;
+        }
+
+        .newyear-message p {
+            font-size: 0.9rem;
+            line-height: 1.7;
+            margin-bottom: 6px;
+        }
+
+        .wishes-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 6px;
+            margin-bottom: 20px;
+        }
+
+        .wish-item {
+            padding: 8px 4px;
+            background: rgba(255, 107, 138, 0.2);
+            border-radius: 10px;
+            font-size: 0.75rem;
+            border: 1px solid rgba(255, 107, 138, 0.3);
+        }
+
+        .final-message {
+            font-family: 'ZCOOL KuaiLe', cursive;
+            font-size: 1.2rem;
+            background: linear-gradient(135deg, #ffd700, var(--pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .fireworks {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .fw-particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            animation: fw-explode 1.5s ease-out forwards;
+        }
+
+        @keyframes fw-explode {
+            0% { transform: translate(0, 0) scale(1); opacity: 1; }
+            100% { transform: translate(var(--tx), var(--ty)) scale(0); opacity: 0; }
+        }
+
+        .page-indicator {
+            position: fixed;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            z-index: 1000;
+        }
+
+        .indicator-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .indicator-dot.active {
+            background: var(--pink);
+            box-shadow: 0 0 8px var(--pink);
+            transform: scale(1.4);
+        }
+
+        /* ========== 扑克牌出牌放大效果 ========== */
+        
+        /* 扇形展开后照片可点击 */
+        .photo-cards-container.spread .photo-card {
+            cursor: pointer;
+        }
+
+        .photo-cards-container.spread .photo-card:hover {
+            z-index: 10 !important;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
+        }
+
+        /* 照片被选中放大的状态 - 变亮！ */
+        .photo-card.selected {
+            position: fixed !important;
+            left: 50% !important;
+            top: 50% !important;
+            bottom: auto !important;
+            transform: translate(-50%, -50%) rotate(0deg) scale(1.4) !important;
+            z-index: 100 !important;
+            opacity: 1 !important;
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+            box-shadow: 
+                0 0 60px rgba(255, 255, 255, 0.6),
+                0 0 120px rgba(255, 107, 138, 0.5),
+                0 30px 80px rgba(0, 0, 0, 0.4) !important;
+            border-color: #fff !important;
+            filter: brightness(1.1) !important;
+        }
+
+        /* 其他照片隐藏 */
+        .photo-cards-container.has-selected .photo-card:not(.selected) {
+            opacity: 0 !important;
+            pointer-events: none;
+        }
+
+        /* 遮罩层 - 半透明让背景可见但聚焦照片 */
+        .photo-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 50;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .photo-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .photo-overlay-hint {
+            position: absolute;
+            bottom: 12%;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.9rem;
+            font-family: 'ZCOOL KuaiLe', cursive;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        /* 手机端选中照片放大调整 */
+        @media (max-width: 500px) {
+            .photo-card.selected {
+                transform: translate(-50%, -50%) rotate(0deg) scale(1.3) !important;
+            }
+        }
+
+        @media (max-height: 700px) {
+            .photo-card.selected {
+                transform: translate(-50%, -50%) rotate(0deg) scale(1.2) !important;
+            }
+        }
+
+        @media (max-height: 600px) {
+            .photo-card.selected {
+                transform: translate(-50%, -50%) rotate(0deg) scale(1.1) !important;
+            }
+        }
+
+        /* 响应式 */
+        @media (max-width: 380px) {
+            .photo-card {
+                width: 60vw;
+                min-width: 160px;
+            }
+
+            .wishes-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .btn-group {
+                gap: 10px;
+            }
+
+            .btn-small {
+                padding: 8px 18px;
+                font-size: 0.8rem;
+            }
+        }
+
+        @media (max-height: 700px) {
+            .photo-cards-container {
+                height: 45vh;
+                max-height: 300px;
+                min-height: 220px;
+            }
+
+            .photo-card {
+                width: 45vw;
+                max-width: 220px;
+                min-width: 150px;
+            }
+
+            .city-name {
+                font-size: 1.6rem;
+            }
+        }
+
+        @media (max-height: 600px) {
+            .photo-cards-container {
+                height: 40vh;
+                max-height: 240px;
+                min-height: 180px;
+            }
+
+            .photo-card {
+                width: 40vw;
+                max-width: 180px;
+                min-width: 130px;
+            }
+
+            .city-number {
+                display: none;
+            }
+
+            .city-name {
+                font-size: 1.4rem;
+            }
+
+            .city-date {
+                padding: 3px 10px;
+                font-size: 0.7rem;
+            }
+
+            .btn {
+                padding: 10px 28px;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-indicator" id="pageIndicator"></div>
+
+    <!-- 照片放大遮罩 -->
+    <div class="photo-overlay" id="photoOverlay" onclick="closeSelectedPhoto()">
+        <div class="photo-overlay-hint">点击任意位置收回 💕</div>
+    </div>
+
+    <!-- 1. 开场页 -->
+    <div class="page intro-page active" id="page1">
+        <div class="particles" id="particles"></div>
+        <div class="intro-content">
+            <div class="year-badge">📅 2025 年度报告</div>
+            <h1 class="intro-title">
+                <span class="highlight">小刘同学</span> <span class="and">&</span> <span class="highlight">甄呆呆</span><br>
+                年度旅行总结
+            </h1>
+            <p class="intro-subtitle">我们一起走过的每一座城市</p>
+            
+            <div class="intro-stats">
+                <div class="stat-item">
+                    <div class="stat-number">6</div>
+                    <div class="stat-label">座城市</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">682</div>
+                    <div class="stat-label">天在一起</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">∞</div>
+                    <div class="stat-label">次想你</div>
+                </div>
+            </div>
+            
+            <button class="btn" onclick="nextPage()">开始回顾 →</button>
+        </div>
+    </div>
+
+    <!-- 2. 广州 -->
+    <div class="page city-page city-guangzhou" id="page2">
+        <div class="city-content">
+            <div class="city-header">
+                <div class="city-number">CITY 01</div>
+                <h2 class="city-name">广州</h2>
+                <div class="city-date">📍 Guangzhou</div>
+            </div>
+            <div class="photo-cards-container" id="cards2">
+                <div class="photo-card"><img src="photos/guangzhou1.jpg" alt="广州"></div>
+                <div class="photo-card"><img src="photos/guangzhou2.jpg" alt="广州"></div>
+                <div class="photo-card"><img src="photos/guangzhou3.jpg" alt="广州"></div>
+            </div>
+            <div class="photo-counter" id="counter2">点击查看照片 📸</div>
+            <div class="btn-group">
+                <button class="btn btn-small btn-next-photo" id="photoBtn2" onclick="showNextPhoto(2)">看照片 📷</button>
+                <button class="btn btn-small" id="nextBtn2" onclick="nextPage()" style="display:none;">下一站 →</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. 江门 -->
+    <div class="page city-page city-jiangmen" id="page3">
+        <div class="city-content">
+            <div class="city-header">
+                <div class="city-number">CITY 02</div>
+                <h2 class="city-name">江门</h2>
+                <div class="city-date">📍 Jiangmen · 你的家乡</div>
+            </div>
+            <div class="photo-cards-container" id="cards3">
+                <div class="photo-card"><img src="photos/jiangmen1.jpg" alt="江门"></div>
+                <div class="photo-card"><img src="photos/jiangmen2.jpg" alt="江门"></div>
+                <div class="photo-card"><img src="photos/jiangmen3.jpg" alt="江门"></div>
+            </div>
+            <div class="photo-counter" id="counter3">点击查看照片 📸</div>
+            <div class="btn-group">
+                <button class="btn btn-small btn-next-photo" id="photoBtn3" onclick="showNextPhoto(3)">看照片 📷</button>
+                <button class="btn btn-small" id="nextBtn3" onclick="nextPage()" style="display:none;">下一站 →</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. 佛山 -->
+    <div class="page city-page city-foshan" id="page4">
+        <div class="city-content">
+            <div class="city-header">
+                <div class="city-number">CITY 03</div>
+                <h2 class="city-name">佛山</h2>
+                <div class="city-date">📍 Foshan</div>
+            </div>
+            <div class="photo-cards-container" id="cards4">
+                <div class="photo-card"><img src="photos/foshan1.jpg" alt="佛山"></div>
+                <div class="photo-card"><img src="photos/foshan2.jpg" alt="佛山"></div>
+                <div class="photo-card"><img src="photos/foshan3.jpg" alt="佛山"></div>
+            </div>
+            <div class="photo-counter" id="counter4">点击查看照片 📸</div>
+            <div class="btn-group">
+                <button class="btn btn-small btn-next-photo" id="photoBtn4" onclick="showNextPhoto(4)">看照片 📷</button>
+                <button class="btn btn-small" id="nextBtn4" onclick="nextPage()" style="display:none;">下一站 →</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 5. 澳门 -->
+    <div class="page city-page city-macau" id="page5">
+        <div class="city-content">
+            <div class="city-header">
+                <div class="city-number">CITY 04</div>
+                <h2 class="city-name">澳门</h2>
+                <div class="city-date">📍 Macau</div>
+            </div>
+            <div class="photo-cards-container" id="cards5">
+                <div class="photo-card"><img src="photos/macau1.jpg" alt="澳门"></div>
+                <div class="photo-card"><img src="photos/macau2.jpg" alt="澳门"></div>
+                <div class="photo-card"><img src="photos/macau3.jpg" alt="澳门"></div>
+            </div>
+            <div class="photo-counter" id="counter5">点击查看照片 📸</div>
+            <div class="btn-group">
+                <button class="btn btn-small btn-next-photo" id="photoBtn5" onclick="showNextPhoto(5)">看照片 📷</button>
+                <button class="btn btn-small" id="nextBtn5" onclick="nextPage()" style="display:none;">下一站 →</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 6. 珠海 -->
+    <div class="page city-page city-zhuhai" id="page6">
+        <div class="city-content">
+            <div class="city-header">
+                <div class="city-number">CITY 05</div>
+                <h2 class="city-name">珠海</h2>
+                <div class="city-date">📍 Zhuhai</div>
+            </div>
+            <div class="photo-cards-container" id="cards6">
+                <div class="photo-card"><img src="photos/zhuhai1.jpg" alt="珠海"></div>
+                <div class="photo-card"><img src="photos/zhuhai2.jpg" alt="珠海"></div>
+                <div class="photo-card"><img src="photos/zhuhai3.jpg" alt="珠海"></div>
+            </div>
+            <div class="photo-counter" id="counter6">点击查看照片 📸</div>
+            <div class="btn-group">
+                <button class="btn btn-small btn-next-photo" id="photoBtn6" onclick="showNextPhoto(6)">看照片 📷</button>
+                <button class="btn btn-small" id="nextBtn6" onclick="nextPage()" style="display:none;">下一站 →</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 7. 深圳 -->
+    <div class="page city-page city-shenzhen" id="page7">
+        <div class="city-content">
+            <div class="city-header">
+                <div class="city-number">CITY 06</div>
+                <h2 class="city-name">深圳</h2>
+                <div class="city-date">📍 Shenzhen</div>
+            </div>
+            <div class="photo-cards-container" id="cards7">
+                <div class="photo-card"><img src="photos/shenzhen1.jpg" alt="深圳"></div>
+                <div class="photo-card"><img src="photos/shenzhen2.jpg" alt="深圳"></div>
+                <div class="photo-card"><img src="photos/shenzhen3.jpg" alt="深圳"></div>
+            </div>
+            <div class="photo-counter" id="counter7">点击查看照片 📸</div>
+            <div class="btn-group">
+                <button class="btn btn-small btn-next-photo" id="photoBtn7" onclick="showNextPhoto(7)">看照片 📷</button>
+                <button class="btn btn-small" id="nextBtn7" onclick="nextPage()" style="display:none;">查看旅行地图 →</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 8. 地图页 -->
+    <div class="page map-page" id="page8">
+        <div class="map-container">
+            <h2 class="map-title">🗺️ 我们的足迹</h2>
+            <p class="map-subtitle">这一年，我们一起走过的城市</p>
+
+            <div class="map-svg-wrapper">
+                <svg class="map-svg" viewBox="0 0 400 340" preserveAspectRatio="xMidYMid meet">
+                    <defs>
+                        <linearGradient id="connectionGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#ffb347" />
+                            <stop offset="100%" style="stop-color:#00f5ff" />
+                        </linearGradient>
+                        <filter id="glow">
+                            <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                            <feMerge>
+                                <feMergeNode in="coloredBlur"/>
+                                <feMergeNode in="SourceGraphic"/>
+                            </feMerge>
+                        </filter>
+                        <filter id="glowStrong">
+                            <feGaussianBlur stdDeviation="5" result="coloredBlur"/>
+                            <feMerge>
+                                <feMergeNode in="coloredBlur"/>
+                                <feMergeNode in="SourceGraphic"/>
+                            </feMerge>
+                        </filter>
+                    </defs>
+
+                    <rect x="0" y="0" width="400" height="340" class="sea"/>
+                    <path class="province" d="M 340,50 L 355,45 L 365,55 L 370,70 L 365,85 L 350,90 L 335,85 L 330,70 L 335,55 Z"/>
+                    <path class="province" d="M 280,40 L 330,35 L 340,50 L 335,70 L 320,80 L 290,75 L 270,60 L 275,45 Z"/>
+                    <path class="province" d="M 290,75 L 320,80 L 335,85 L 340,110 L 330,140 L 300,150 L 270,135 L 265,100 L 275,80 Z"/>
+                    <path class="province" d="M 270,135 L 300,150 L 310,180 L 300,220 L 270,235 L 245,220 L 240,180 L 250,150 Z"/>
+                    <path class="province" d="M 210,100 L 265,100 L 270,135 L 250,150 L 240,180 L 220,200 L 190,190 L 180,150 L 195,115 Z"/>
+                    <path class="province" d="M 130,120 L 180,110 L 195,115 L 180,150 L 190,190 L 170,220 L 130,215 L 110,180 L 120,140 Z"/>
+                    <path class="province" d="M 60,200 L 110,180 L 130,215 L 140,250 L 120,280 L 80,290 L 45,270 L 40,230 Z"/>
+                    <path class="province" d="M 130,215 L 170,220 L 190,190 L 220,200 L 240,180 L 245,220 L 260,250 L 250,275 L 230,290 L 200,300 L 175,310 L 155,305 L 145,290 L 140,270 L 120,280 L 140,250 Z" style="fill: rgba(0, 245, 255, 0.25); stroke-width: 2;"/>
+                    <path class="province" d="M 230,290 L 245,285 L 250,295 L 240,305 L 228,298 Z" style="fill: rgba(191, 95, 255, 0.3);"/>
+                    <circle cx="195" cy="302" r="6" style="fill: rgba(191, 95, 255, 0.3); stroke: rgba(191, 95, 255, 0.6); stroke-width: 1;"/>
+
+                    <path class="connection-line" d="M 352,70 Q 300,180 200,260" filter="url(#glow)"/>
+
+                    <circle cx="352" cy="68" r="8" class="city-dot-svg shanghai" filter="url(#glowStrong)">
+                        <animate attributeName="r" values="8;11;8" dur="2s" repeatCount="indefinite"/>
+                    </circle>
+                    <circle cx="352" cy="68" r="8" class="glow-ring shanghai">
+                        <animate attributeName="r" values="8;25;8" dur="2s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0.8;0;0.8" dur="2s" repeatCount="indefinite"/>
+                    </circle>
+                    <text x="352" y="52" class="city-label-svg shanghai" text-anchor="middle" font-weight="bold" font-size="13">📍 上海 (小刘)</text>
+
+                    <circle cx="200" cy="248" r="7" class="city-dot-svg" filter="url(#glowStrong)">
+                        <animate attributeName="r" values="7;10;7" dur="2s" repeatCount="indefinite"/>
+                    </circle>
+                    <text x="200" y="235" class="city-label-svg" text-anchor="middle" font-size="13">广州</text>
+
+                    <circle cx="172" cy="255" r="6" class="city-dot-svg" filter="url(#glow)">
+                        <animate attributeName="r" values="6;8;6" dur="2s" repeatCount="indefinite"/>
+                    </circle>
+                    <text x="155" y="252" class="city-label-svg" text-anchor="middle" font-size="12">佛山</text>
+
+                    <circle cx="238" cy="282" r="7" class="city-dot-svg" filter="url(#glowStrong)">
+                        <animate attributeName="r" values="7;10;7" dur="2s" repeatCount="indefinite"/>
+                    </circle>
+                    <text x="260" y="280" class="city-label-svg" text-anchor="start" font-size="13">深圳</text>
+
+                    <circle cx="208" cy="292" r="6" class="city-dot-svg" filter="url(#glow)">
+                        <animate attributeName="r" values="6;8;6" dur="2s" repeatCount="indefinite"/>
+                    </circle>
+                    <text x="215" y="308" class="city-label-svg" text-anchor="start" font-size="12">珠海</text>
+
+                    <circle cx="192" cy="305" r="6" class="city-dot-svg" filter="url(#glow)">
+                        <animate attributeName="r" values="6;8;6" dur="2s" repeatCount="indefinite"/>
+                    </circle>
+                    <text x="175" y="320" class="city-label-svg" text-anchor="middle" font-size="12">澳门</text>
+
+                    <circle cx="155" cy="272" r="6" class="city-dot-svg" filter="url(#glow)">
+                        <animate attributeName="r" values="6;8;6" dur="2s" repeatCount="indefinite"/>
+                    </circle>
+                    <text x="138" y="268" class="city-label-svg" text-anchor="middle" font-size="12">江门</text>
+
+                    <text x="280" y="178" font-size="28" filter="url(#glowStrong)">💗</text>
+                </svg>
+            </div>
+
+            <div class="map-stats">
+                <div class="map-stat">
+                    <div class="map-stat-number">6</div>
+                    <div class="map-stat-label">座城市</div>
+                </div>
+                <div class="map-stat">
+                    <div class="map-stat-number">1400+</div>
+                    <div class="map-stat-label">公里</div>
+                </div>
+                <div class="map-stat">
+                    <div class="map-stat-number">1</div>
+                    <div class="map-stat-label">颗心</div>
+                </div>
+            </div>
+
+            <button class="btn" onclick="nextPage()">我想对你说 →</button>
+        </div>
+    </div>
+
+    <!-- 9. 告白页 -->
+    <div class="page confession-page" id="page9">
+        <div class="confession-container">
+            <div class="final-photo">
+                <img src="photos/final.jpg" alt="我们">
+            </div>
+            
+            <h2 class="confession-title">甄呆呆小朋友：</h2>
+            
+            <div class="confession-card">
+                <div class="confession-text">
+                    <p>恭喜你被我喜欢了<span class="highlight">682天</span>！</p>
+                    <p>从金汇酒楼的打工人，变成我的专属呆呆。</p>
+                    <p>这一年我们一起去了<span class="highlight">6座城市</span>，<br>每一站都有你，每一刻都很甜。</p>
+                    <p>异地这么久，我发现一件事——<br>想你这件事，真的会上瘾。</p>
+                    <p>去年跨年欠你的，今年全部还给你！</p>
+                    <div class="confession-signature">爱你的小刘同学 ❤️</div>
+                </div>
+            </div>
+
+            <button class="btn" onclick="nextPage()">最后一页 🎆</button>
+        </div>
+    </div>
+
+    <!-- 10. 跨年页 -->
+    <div class="page newyear-page" id="page10">
+        <div class="fireworks" id="fireworks"></div>
+        <div class="newyear-container">
+            <div class="year-transition">
+                <div class="year-old">2025</div>
+                <div class="year-arrow">⬇️</div>
+                <div class="year-new">2026</div>
+            </div>
+            
+            <p class="newyear-subtitle">🎊 新年快乐，小呆呆！🎊</p>
+
+            <div class="newyear-message">
+                <p>这是我们第一次一起跨年！</p>
+                <p>从今以后，每一个新年，<br>我都想牵着你的手一起倒数。</p>
+                <p>2026，我们继续一起走！💕</p>
+            </div>
+
+            <div class="wishes-grid">
+                <div class="wish-item">💕 永远在一起</div>
+                <div class="wish-item">🏠 结束异地</div>
+                <div class="wish-item">✈️ 更多旅行</div>
+                <div class="wish-item">💰 一起暴富</div>
+                <div class="wish-item">🌟 身体健康</div>
+                <div class="wish-item">😊 天天开心</div>
+            </div>
+
+            <div class="final-message">
+                我爱你，甄呆呆 💕<br>
+                新的一年，继续爱你！
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const totalPages = 10;
+        let currentPage = 1;
+        
+        // 每个城市页面的照片状态
+        const photoState = {
+            2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0
+        };
+
+        function createIndicators() {
+            const container = document.getElementById('pageIndicator');
+            for (let i = 1; i <= totalPages; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'indicator-dot' + (i === 1 ? ' active' : '');
+                dot.onclick = () => goToPage(i);
+                container.appendChild(dot);
+            }
+        }
+
+        function updateIndicators() {
+            const dots = document.querySelectorAll('.indicator-dot');
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index + 1 === currentPage);
+            });
+        }
+
+        // 显示下一张照片
+        function showNextPhoto(pageNum) {
+            const container = document.getElementById('cards' + pageNum);
+            const cards = container.querySelectorAll('.photo-card');
+            const counter = document.getElementById('counter' + pageNum);
+            const photoBtn = document.getElementById('photoBtn' + pageNum);
+            const nextBtn = document.getElementById('nextBtn' + pageNum);
+            
+            const currentIndex = photoState[pageNum];
+            
+            if (currentIndex < 3) {
+                // 显示下一张照片
+                cards[currentIndex].classList.add('show');
+                photoState[pageNum]++;
+                
+                // 更新计数器
+                counter.textContent = `第 ${photoState[pageNum]} / 3 张 💕`;
+                
+                if (photoState[pageNum] < 3) {
+                    photoBtn.textContent = '下一张 📷';
+                } else {
+                    // 所有照片展示完毕，展开扇形
+                    photoBtn.textContent = '展开 ✨';
+                }
+            } else {
+                // 扇形展开
+                container.classList.add('spread');
+                counter.textContent = '我们的回忆 💕';
+                photoBtn.style.display = 'none';
+                nextBtn.style.display = 'inline-block';
+            }
+        }
+
+        // 重置城市页面状态
+        function resetCityPage(pageNum) {
+            const container = document.getElementById('cards' + pageNum);
+            if (!container) return;
+            
+            const cards = container.querySelectorAll('.photo-card');
+            const counter = document.getElementById('counter' + pageNum);
+            const photoBtn = document.getElementById('photoBtn' + pageNum);
+            const nextBtn = document.getElementById('nextBtn' + pageNum);
+            
+            // 重置状态
+            photoState[pageNum] = 0;
+            container.classList.remove('spread');
+            cards.forEach(card => card.classList.remove('show'));
+            
+            if (counter) counter.textContent = '点击查看照片 📸';
+            if (photoBtn) {
+                photoBtn.textContent = '看照片 📷';
+                photoBtn.style.display = 'inline-block';
+            }
+            if (nextBtn) nextBtn.style.display = 'none';
+        }
+
+        function nextPage() {
+            if (currentPage < totalPages) {
+                goToPage(currentPage + 1);
+            }
+        }
+
+        function goToPage(page) {
+            const oldPage = document.getElementById('page' + currentPage);
+            const newPage = document.getElementById('page' + page);
+            
+            if (oldPage) oldPage.classList.remove('active');
+            if (newPage) newPage.classList.add('active');
+            
+            currentPage = page;
+            updateIndicators();
+
+            // 如果是城市页面，重置状态
+            if (page >= 2 && page <= 7) {
+                resetCityPage(page);
+            }
+
+            // 最后一页放烟花
+            if (page === totalPages) {
+                setTimeout(startFireworks, 300);
+            }
+        }
+
+        function createParticles() {
+            const container = document.getElementById('particles');
+            if (!container) return;
+            
+            for (let i = 0; i < 20; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDuration = (10 + Math.random() * 10) + 's';
+                particle.style.animationDelay = Math.random() * 10 + 's';
+                container.appendChild(particle);
+            }
+        }
+
+        function createFirework(x, y) {
+            const container = document.getElementById('fireworks');
+            if (!container) return;
+            
+            const colors = ['#ff6b8a', '#ffd700', '#ff8a80', '#87ceeb', '#dda0dd', '#98fb98'];
+            const particleCount = 18;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'fw-particle';
+                particle.style.left = x + '%';
+                particle.style.top = y + '%';
+                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                
+                const angle = (i / particleCount) * Math.PI * 2;
+                const distance = 40 + Math.random() * 60;
+                particle.style.setProperty('--tx', Math.cos(angle) * distance + 'px');
+                particle.style.setProperty('--ty', Math.sin(angle) * distance + 'px');
+                
+                container.appendChild(particle);
+                setTimeout(() => particle.remove(), 1500);
+            }
+        }
+
+        let fireworkInterval = null;
+        
+        function startFireworks() {
+            if (fireworkInterval) clearInterval(fireworkInterval);
+            
+            for (let i = 0; i < 5; i++) {
+                setTimeout(() => {
+                    createFirework(15 + Math.random() * 70, 15 + Math.random() * 40);
+                }, i * 300);
+            }
+
+            fireworkInterval = setInterval(() => {
+                if (currentPage === totalPages) {
+                    createFirework(10 + Math.random() * 80, 10 + Math.random() * 45);
+                }
+            }, 1000);
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                // 如果在城市页面且照片没看完，显示下一张
+                if (currentPage >= 2 && currentPage <= 7) {
+                    const state = photoState[currentPage];
+                    if (state <= 3) {
+                        showNextPhoto(currentPage);
+                        return;
+                    }
+                }
+                nextPage();
+            } else if (e.key === 'ArrowLeft' && currentPage > 1) {
+                e.preventDefault();
+                goToPage(currentPage - 1);
+            }
+        });
+
+        let touchStartX = 0;
+        document.addEventListener('touchstart', (e) => {
+            touchStartX = e.touches[0].clientX;
+        }, { passive: true });
+
+        document.addEventListener('touchend', (e) => {
+            const touchEndX = e.changedTouches[0].clientX;
+            const diff = touchStartX - touchEndX;
+            
+            if (Math.abs(diff) > 50) {
+                if (diff > 0) {
+                    // 向左滑
+                    if (currentPage >= 2 && currentPage <= 7) {
+                        const state = photoState[currentPage];
+                        if (state <= 3) {
+                            showNextPhoto(currentPage);
+                            return;
+                        }
+                    }
+                    if (currentPage < totalPages) nextPage();
+                } else if (diff < 0 && currentPage > 1) {
+                    goToPage(currentPage - 1);
+                }
+            }
+        }, { passive: true });
+
+        // 扑克牌出牌放大效果
+        let selectedCard = null;
+        let selectedContainer = null;
+
+        function selectPhoto(card, container) {
+            // 如果已经有选中的，先收回
+            if (selectedCard) {
+                closeSelectedPhoto();
+                return;
+            }
+
+            selectedCard = card;
+            selectedContainer = container;
+
+            // 显示遮罩
+            document.getElementById('photoOverlay').classList.add('active');
+            
+            // 添加选中状态
+            container.classList.add('has-selected');
+            card.classList.add('selected');
+        }
+
+        function closeSelectedPhoto() {
+            if (!selectedCard) return;
+
+            // 隐藏遮罩
+            document.getElementById('photoOverlay').classList.remove('active');
+            
+            // 移除选中状态
+            selectedCard.classList.remove('selected');
+            selectedContainer.classList.remove('has-selected');
+
+            selectedCard = null;
+            selectedContainer = null;
+        }
+
+        // 为所有照片卡片添加点击事件
+        function setupPhotoClickHandlers() {
+            for (let pageNum = 2; pageNum <= 7; pageNum++) {
+                const container = document.getElementById('cards' + pageNum);
+                if (!container) continue;
+                
+                const cards = container.querySelectorAll('.photo-card');
+                cards.forEach(card => {
+                    card.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        // 只有扇形展开后才能点击放大
+                        if (container.classList.contains('spread')) {
+                            if (this.classList.contains('selected')) {
+                                closeSelectedPhoto();
+                            } else {
+                                selectPhoto(this, container);
+                            }
+                        }
+                    });
+                });
+            }
+        }
+
+        // ESC 键关闭
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeSelectedPhoto();
+            }
+        });
+
+        createIndicators();
+        createParticles();
+        setupPhotoClickHandlers();
+    </script>
+</body>
+</html>
